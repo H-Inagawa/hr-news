@@ -14,11 +14,23 @@ app.use(express.json());
 // RSSからニュースを取得
 app.get('/api/news', async (req, res) => {
   try {
-    // 従業員が知るべき労働法、手続き、働き方改革などのキーワードで検索
-    const query = encodeURIComponent('(労働基準法 OR 働き方改革 OR 社会保険 手続き OR 雇用契約 OR 労務管理) ニュース');
+    const keyword = req.query.q || '';
+    const baseQuery = '(労働基準法 OR 社会保険 OR 雇用保険 OR 労務) AND (改正 OR 変更 OR 最新 OR 義務化)';
+    const queryStr = keyword ? `${baseQuery} ${keyword}` : baseQuery;
+    const query = encodeURIComponent(queryStr);
+    
     const feed = await parser.parseURL(`https://news.google.com/rss/search?q=${query}&hl=ja&gl=JP&ceid=JP:ja`);
     
-    const news = feed.items.map(item => ({
+    // 3か月前の日付を計算
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+    // 3か月以内のニュースのみフィルタリングし、日付順にソート
+    const filteredItems = feed.items
+      .filter(item => new Date(item.pubDate) >= threeMonthsAgo)
+      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    
+    const news = filteredItems.map(item => ({
       title: item.title,
       link: item.link,
       pubDate: item.pubDate,
@@ -34,7 +46,7 @@ app.get('/api/news', async (req, res) => {
 });
 
 // 労務関連キーワード
-const LABOR_KEYWORDS = ['労務', '雇用', '労働', '給与', '賃金', '社会保険', '年金', '働き方', '厚生', '就業規則', 'ハラスメント', '育休', '有給', '裁量労働', '最低賃金'];
+const LABOR_KEYWORDS = ['労務', '雇用', '労働', '給与', '賃金', '社会保険', '年金', '働き方', '厚生', '就業規則', 'ハラスメント', '育休', '有給', '裁量労働', '最低賃金', '労働基準法'];
 
 // 要約処理
 app.post('/api/summarize', (req, res) => {
@@ -47,7 +59,7 @@ app.post('/api/summarize', (req, res) => {
   const combinedText = (title + ' ' + text).toLowerCase();
   const isLaborRelated = LABOR_KEYWORDS.some(keyword => combinedText.includes(keyword.toLowerCase()));
   
-  // 最初は200文字に切り詰める簡易要約
+  // 150-200文字程度に要約（簡易的に200文字で切り詰め）
   let summary = text.length > 200 ? text.substring(0, 200) + '...' : text;
   
   if (!isLaborRelated) {

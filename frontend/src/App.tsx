@@ -14,13 +14,14 @@ function App() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   // ニュース取得
   const fetchNews = async () => {
     setLoading(true);
     setStatus('ニュースを取得中...');
     try {
-      const response = await axios.get('/api/news');
+      const response = await axios.get(`/api/news?q=${encodeURIComponent(searchKeyword)}`);
       setNews(response.data);
       setStatus(`成功: ${response.data.length}件のニュースを取得しました。`);
     } catch (error) {
@@ -81,7 +82,14 @@ function App() {
         <p>最新の労務関連ニュースを取得し、要約してSlackに共有します。</p>
       </header>
 
-      <div style={{ marginBottom: '2rem' }}>
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          placeholder="検索ワードを入力（例: 法改正、DX）"
+          className="search-input"
+        />
         <button 
           onClick={fetchNews} 
           disabled={loading}
