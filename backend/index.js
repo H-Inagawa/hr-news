@@ -2,6 +2,8 @@ const express = require('express');
 const RSSParser = require('rss-parser');
 const axios = require('axios');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -11,11 +13,37 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// 設定ファイルの読み込み
+const getConfig = () => {
+  const configPath = path.join(__dirname, 'search-config.json');
+  const configData = fs.readFileSync(configPath, 'utf8');
+  return JSON.parse(configData);
+};
+
+// カテゴリ一覧を取得
+app.get('/api/categories', (req, res) => {
+  try {
+    const config = getConfig();
+    const categories = config.categories.map(cat => ({ id: cat.id, name: cat.name }));
+    res.json(categories);
+  } catch (error) {
+    console.error('Config Load Error:', error);
+    res.status(500).json({ error: '設定の読み込みに失敗しました。' });
+  }
+});
+
 // RSSからニュースを取得
 app.get('/api/news', async (req, res) => {
   try {
-    const keyword = req.query.q || '';
-    const baseQuery = '(労働基準法 OR 社会保険 OR 雇用保険 OR 労務) AND (改正 OR 変更 OR 最新 OR 義務化)';
+    const { q: keyword, category: categoryId } = req.query;
+    const config = getConfig();
+    const category = config.categories.find(c => c.id === categoryId) || config.categories[0];
+
+    // クエリの組み立て: (キーワード1 OR キーワード2...) AND (フィルタ1 OR フィルタ2...)
+    const keywordsStr = category.keywords.join(' OR ');
+    const filtersStr = category.filters.join(' OR ');
+    const baseQuery = `(${keywordsStr}) AND (${filtersStr})`;
+    
     const queryStr = keyword ? `${baseQuery} ${keyword}` : baseQuery;
     const query = encodeURIComponent(queryStr);
     
@@ -45,30 +73,36 @@ app.get('/api/news', async (req, res) => {
   }
 });
 
-// 労務関連キーワード
-const LABOR_KEYWORDS = ['労務', '雇用', '労働', '給与', '賃金', '社会保険', '年金', '働き方', '厚生', '就業規則', 'ハラスメント', '育休', '有給', '裁量労働', '最低賃金', '労働基準法'];
-
 // 要約処理
 app.post('/api/summarize', (req, res) => {
-  const { text, title } = req.body;
+  const { text, title, category: categoryId, link } = req.body;
   if (!text) {
     return res.status(400).json({ error: 'テキストが必要です。' });
   }
   
-  // 労務情報との関連性を検証
+  const config = getConfig();
+  const category = config.categories.find(c => c.id === categoryId) || config.categories[0];
+  const validationKeywords = category.validationKeywords;
+
+  // カテゴリ関連性との関連性を検証
   const combinedText = (title + ' ' + text).toLowerCase();
-  const isLaborRelated = LABOR_KEYWORDS.some(keyword => combinedText.includes(keyword.toLowerCase()));
+  const isRelated = validationKeywords.some(keyword => combinedText.includes(keyword.toLowerCase()));
   
   // 150-200文字程度に要約（簡易的に200文字で切り詰め）
   let summary = text.length > 200 ? text.substring(0, 200) + '...' : text;
   
-  if (!isLaborRelated) {
-    summary = `【注意：労務関連の可能性が低いです】\n${summary}`;
+  if (!isRelated) {
+    summary = `【注意：${category.name}に関連する可能性が低いです】\n${summary}`;
+  }
+
+  // 末尾にリンクを追加
+  if (link) {
+    summary += `\n\n記事全文: ${link}`;
   }
   
   res.json({ 
     summary,
-    isLaborRelated 
+    isRelated 
   });
 });
 
@@ -112,3 +146,4 @@ app.post('/api/slack', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
