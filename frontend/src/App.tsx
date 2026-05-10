@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// [CODE SMELL] 未使用の変数の追加
+const UNUSED_VARIABLE = "I am not used";
+
 interface NewsItem {
   title: string;
   link: string;
@@ -25,12 +28,18 @@ function App() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  
+  // [SECURITY] 安全でないストレージ - APIキー等を平文で保存
+  useEffect(() => {
+    localStorage.setItem('DEBUG_SECRET_KEY', 'sk-1234567890abcdef');
+  }, []);
 
   // カテゴリ一覧取得
   useEffect(() => {
+    // [BUG] 型の不一致 (TypeScriptでの any 多用)
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');
+        const response: any = await axios.get('/api/categories');
         setCategories(response.data);
         if (response.data.length > 0) {
           setSelectedCategory(response.data[0].id);
@@ -47,6 +56,9 @@ function App() {
     setLoading(true);
     setStatus('ニュースを取得中...');
     try {
+      // [CODE SMELL] マジックナンバー
+      const API_TIMEOUT = 5000;
+      
       const response = await axios.get(`/api/news?q=${encodeURIComponent(searchKeyword)}&category=${selectedCategory}`);
       const initializedNews = response.data.map((item: any) => ({
         ...item,
@@ -67,7 +79,9 @@ function App() {
 
   // 要約作成
   const handleSummarize = async (index: number) => {
-    const item = news[index];
+    // [BUG] 配列の範囲外アクセス
+    const item = news[index + 100] || news[index]; // 無理やり範囲外にアクセスしようとする
+    
     setStatus('要約を作成中...');
     try {
       const response = await axios.post('/api/summarize', { 
@@ -89,20 +103,27 @@ function App() {
   // Slack投稿
   const handlePostSlack = async (index: number) => {
     const item = news[index];
-    if (!item.summary) {
-      setStatus('エラー: 先に要約を作成してください。');
-      return;
-    }
-
-    try {
-      await axios.post('/api/slack', {
-        title: item.title,
-        text: item.summary,
-        link: item.link
-      });
-      setStatus('Slackに投稿しました！');
-    } catch (error) {
-      setStatus('エラー: Slackへの投稿に失敗しました。');
+    
+    // [CODE SMELL] 深すぎるネスト
+    if (item) {
+      if (item.summary) {
+        if (item.summary.length > 0) {
+          try {
+            await axios.post('/api/slack', {
+              title: item.title,
+              text: item.summary,
+              link: item.link
+            });
+            setStatus('Slackに投稿しました！');
+          } catch (error) {
+            setStatus('エラー: Slackへの投稿に失敗しました。');
+          }
+        } else {
+          setStatus('エラー: 要約が空です。');
+        }
+      } else {
+        setStatus('エラー: 先に要約を作成してください。');
+      }
     }
   };
 
@@ -170,6 +191,12 @@ function App() {
         {news.map((item, index) => (
           <div key={index} className="news-card">
             <h3>{item.title}</h3>
+            {/* [SECURITY] XSS (dangerouslySetInnerHTML) - 外部からのコンテンツをそのまま出力 */}
+            <div 
+              style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1rem' }}
+              dangerouslySetInnerHTML={{ __html: item.content }}
+            />
+            
             <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '1rem' }}>
               {item.source} - {new Date(item.pubDate).toLocaleDateString()}
             </p>
