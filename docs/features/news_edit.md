@@ -96,6 +96,4 @@ sequenceDiagram
 
 ## TODO
 
-- 文字数上限・プレースホルダ以外の入力ガイドの要否
-- 編集内容の自動保存（localStorage 等）の要否
-- 要約再生成時の編集内容上書き確認ダイアログの要否
+未完了事項は [docs/TODO.md](../TODO.md)（TODO-130 〜 TODO-132）を参照。

@@ -135,8 +135,6 @@ sequenceDiagram
 
 ## TODO
 
-- 150〜200 文字程度と実装（200 文字固定）の差異確認
-- AI（Gemini 等）による高度な要約への置き換え可否
-- `isRelated` をフロントエンド UI で明示的に表示するか
+未完了事項は [docs/TODO.md](../TODO.md)（TODO-022、TODO-023、TODO-120、TODO-041）を参照。
 
 採用理由は [docs/decision_log.md](../decision_log.md)（判断 4）を参照。

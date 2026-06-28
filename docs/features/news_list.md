@@ -155,6 +155,4 @@ sequenceDiagram
 
 ## TODO
 
-- カテゴリ取得失敗時のユーザー向けエラー表示（現状は `console.error` のみ）
-- 取得件数 0 件時の専用メッセージ表示の有無
-- ページネーション・件数上限の定義
+未完了事項は [docs/TODO.md](../TODO.md)（TODO-100 〜 TODO-102）を参照。

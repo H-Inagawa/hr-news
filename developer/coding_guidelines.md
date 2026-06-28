@@ -41,7 +41,7 @@ hr-news/
 - 検索カテゴリ設定 → `backend/search-config.json`
 - スタイル → `frontend/src/index.css`（コンポーネント CSS ファイルなし）
 
-TODO: ファイル分割・レイヤー分離の方針（現状は単一ファイル構成）
+TODO: ファイル分割・レイヤー分離の方針 → [docs/TODO.md](../docs/TODO.md) TODO-304
 
 ---
 
@@ -135,14 +135,14 @@ TODO: ファイル分割・レイヤー分離の方針（現状は単一ファ�
 
 テストフレームワーク・テストスクリプトは `package.json` に定義されていない。
 
-TODO: テスト導入時の方針を決定する。
+TODO: テスト導入時の方針 → [docs/TODO.md](../docs/TODO.md) TODO-302
 
 ---
 
 ## Git 運用
 
 - `.gitignore` 対象: `node_modules/`, `.env`, `dist/`
-- ブランチ戦略・コミットメッセージ規約: TODO（リポジトリからは判断不可）
+- ブランチ戦略・コミットメッセージ規約 → [docs/TODO.md](../docs/TODO.md) TODO-300, TODO-301
 
 ---
 
@@ -155,10 +155,11 @@ TODO: テスト導入時の方針を決定する。
 | 永続化・設定形式 | [docs/database.md](../docs/database.md) |
 | 機能仕様の追加・変更 | [docs/features/](../docs/features/) 内の該当ファイル |
 | 設計判断 | [docs/decision_log.md](../docs/decision_log.md) |
+| 未完了事項 | [docs/TODO.md](../docs/TODO.md) |
 | コーディング規約 | 本ファイル |
 
 ---
 
 ## Linter / Formatter
 
-TODO: ESLint, Prettier 等の設定ファイルはリポジトリに存在しない。導入可否は未定。
+TODO: ESLint, Prettier 等 → [docs/TODO.md](../docs/TODO.md) TODO-303

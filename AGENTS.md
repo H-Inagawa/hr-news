@@ -14,7 +14,8 @@ AI エージェント向けの作業指示書。プロジェクト理解の順�
 4. [docs/database.md](docs/database.md)
 5. [docs/features/](docs/features/)
 6. [docs/decision_log.md](docs/decision_log.md)
-7. [developer/coding_guidelines.md](developer/coding_guidelines.md)
+7. [docs/TODO.md](docs/TODO.md)
+8. [developer/coding_guidelines.md](developer/coding_guidelines.md)
 
 ---
 
@@ -30,7 +31,7 @@ AI エージェント向けの作業指示書。プロジェクト理解の順�
 
 - 実装前に関連ドキュメントを読む
 - 実装変更時はドキュメントを更新する
-- 不明点は TODO 化する
+- 不明点は [docs/TODO.md](docs/TODO.md) に追記する
 - 推測で仕様変更しない
 - 設計判断は [docs/decision_log.md](docs/decision_log.md) に記録する
 - 作業者からの指示は `instruction-templates/` のテンプレートを使用する（ローカル配置・Git 管理外）

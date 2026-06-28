@@ -131,6 +131,4 @@ sequenceDiagram
 
 ## TODO
 
-- 投稿履歴の保存
-- 投稿失敗時の Slack エラー詳細のユーザー表示
-- API レベルでの `title` / `text` / `link` 必須バリデーション（現状はフロント依存）
+未完了事項は [docs/TODO.md](../TODO.md)（TODO-140、TODO-141、TODO-042）を参照。

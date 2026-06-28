@@ -94,6 +94,4 @@ sequenceDiagram
 
 ## TODO
 
-- カテゴリ取得失敗時のユーザー向けエラー表示
-- `none` カテゴリの利用目的・運用ルール
-- カテゴリ追加・変更時の運用手順書
+未完了事項は [docs/TODO.md](../TODO.md)（TODO-110 〜 TODO-111、TODO-024）を参照。

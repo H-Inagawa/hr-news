@@ -3,7 +3,7 @@
 本報告は、既存実装（ソースコード）を正としてドキュメント標準化テンプレートを適用した結果をまとめたものです。ソースコードの変更は行っていません。
 
 作業日: 2026-06-28  
-最終更新: 2026-06-28（TODO 解消情報を反映）
+最終更新: 2026-06-28（TODO 一覧を `docs/TODO.md` に集約）
 
 ---
 
@@ -23,6 +23,7 @@
 | `docs/features/category_selection.md` | カテゴリ選択・設定内容 |
 | `docs/decision_log.md` | コードから読み取れる設計判断 7 件 |
 | `developer/coding_guidelines.md` | 命名・構成・スタイル・エラー処理・テスト方針 |
+| `docs/TODO.md` | 未完了事項・検討事項一覧 |
 | `docs/migration_report.md` | 本作業報告 |
 
 ---
@@ -134,15 +135,7 @@
 
 ## 今後確認したい事項
 
-1. **本番構成の確定**: サンプル構成（CDN / Node.js / PostgreSQL）のインフラ担当レビュー
-2. **認証方式**: 追加時の認証方式・権限モデルの選定
-3. **DB スキーマ**: トレンド収集用 PostgreSQL のテーブル設計
-4. **要約方式**: 簡易切り出しのままか、AI 要約への移行計画
-5. **`none` カテゴリ**: 空 keywords/filters での RSS 取得挙動の運用意図
-6. **未使用依存**: `body-parser` の削除または使用予定の確認
-7. **テスト・Lint**: テストフレームワーク・ESLint/Prettier 導入方針
-8. **Git 運用**: ブランチ戦略・PR ルール・CI の整備
-9. **Google News RSS / Slack Webhook 選定理由**: 設計判断として `decision_log.md` へ追記
+→ [docs/TODO.md](TODO.md) に集約済み（2026-06-28）
 
 ---
 
@@ -156,3 +149,4 @@
 |------|------|
 | `prompts/generate-app.md` | 削除。内容は `docs/` 配下に移行済み |
 | `instruction-templates/` | `.gitignore` に追加（ローカル配置・Git 管理外） |
+| 未完了事項 | `docs/TODO.md` に集約。GitHub Issues 移行予定（TODO-001） |

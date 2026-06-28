@@ -1,6 +1,6 @@
 # 設計判断履歴
 
-コードから読み取れる設計判断を記録する。判断経緯がコードから判別できないものは TODO とする。
+コードから読み取れる設計判断を記録する。未記録の判断は [docs/TODO.md](TODO.md)（TODO-030 〜 TODO-032）を参照。
 
 ---
 
@@ -12,11 +12,7 @@
 
 ### 背景
 
-TODO: RSS を選んだ背景（他 API との比較、コスト、利用規約等）はコードからは判断不可。
-
-### 検討した案
-
-TODO
+→ [docs/TODO.md](TODO.md) TODO-030
 
 ### 採用した案
 
@@ -48,7 +44,7 @@ Google News RSS（`https://news.google.com/rss/search?q=...&hl=ja&gl=JP&ceid=JP:
 
 ### 背景
 
-TODO: ファイルベース設定を選んだ理由（DB 不使用、デプロイ容易性等）は明示されていない。
+→ [docs/TODO.md](TODO.md) TODO-032
 
 ### 採用した案
 
@@ -143,7 +139,7 @@ Slack 投稿に Slack API（Bot Token）ではなく Incoming Webhook を使用�
 
 ### 背景
 
-TODO
+→ [docs/TODO.md](TODO.md) TODO-031
 
 ### 採用した案
 

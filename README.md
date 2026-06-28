@@ -50,6 +50,7 @@ Google News RSS からカテゴリ別にニュースを取得し、要約・編�
 │   ├── database.md
 │   ├── features/                # 機能別仕様書
 │   ├── decision_log.md
+│   ├── TODO.md                  # 未完了事項一覧（本ファイルが正）
 │   └── migration_report.md
 ├── developer/
 │   └── coding_guidelines.md
@@ -120,6 +121,7 @@ npm run dev
 | [docs/database.md](docs/database.md) | データ永続化（本プロジェクトでは DB 未使用） |
 | [docs/features/](docs/features/) | 機能別仕様書 |
 | [docs/decision_log.md](docs/decision_log.md) | 設計判断履歴 |
+| [docs/TODO.md](docs/TODO.md) | 未完了事項・検討事項一覧 |
 | [developer/coding_guidelines.md](developer/coding_guidelines.md) | コーディング規約 |
 | [docs/migration_report.md](docs/migration_report.md) | ドキュメント標準化の作業報告 |
 
@@ -134,9 +136,10 @@ npm run dev
 3. 実装・動作確認を行う
 4. 仕様変更があればドキュメントを更新する
 5. 設計判断が発生した場合は `docs/decision_log.md` を更新する
-6. プルリクエストを作成し、レビューを受ける
+6. 未完了事項は `docs/TODO.md` を更新する
+7. プルリクエストを作成し、レビューを受ける
 
-TODO: ブランチ戦略・レビュー要件・CI 手順など、プロジェクト固有のルールを追記する。
+ブランチ戦略・CI 手順などは [docs/TODO.md](docs/TODO.md) 参照。
 
 ---
 
