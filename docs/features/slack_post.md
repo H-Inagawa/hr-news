@@ -131,6 +131,6 @@ sequenceDiagram
 
 ## TODO
 
-- 投稿履歴の保存（`prompts/generate-app.md` に将来検討として記載）
+- 投稿履歴の保存
 - 投稿失敗時の Slack エラー詳細のユーザー表示
 - API レベルでの `title` / `text` / `link` 必須バリデーション（現状はフロント依存）

@@ -135,7 +135,7 @@ sequenceDiagram
 
 ## TODO
 
-- `prompts/generate-app.md` に記載の「150〜200 文字程度」と実装（200 文字固定）の差異確認
+- 150〜200 文字程度と実装（200 文字固定）の差異確認
 - AI（Gemini 等）による高度な要約への置き換え可否
 - `isRelated` をフロントエンド UI で明示的に表示するか
 

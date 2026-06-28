@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- hr-news project ---
+# 作業者向け AI 指示テンプレート（ローカル配置・Git 管理外）
+instruction-templates/

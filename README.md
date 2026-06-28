@@ -64,9 +64,9 @@ Google News RSS からカテゴリ別にニュースを取得し、要約・編�
 │   │   └── index.css            # スタイル定義
 │   ├── vite.config.ts           # 開発サーバー・API プロキシ設定
 │   └── package.json
-└── prompts/
-    └── generate-app.md          # アプリ生成・編集指示書（開発時参照用）
 ```
+
+`instruction-templates/` は作業者向け AI 指示テンプレート用フォルダです。ローカルに配置し、Git 管理対象外（`.gitignore`）としています。
 
 ---
 
@@ -122,6 +122,8 @@ npm run dev
 | [docs/decision_log.md](docs/decision_log.md) | 設計判断履歴 |
 | [developer/coding_guidelines.md](developer/coding_guidelines.md) | コーディング規約 |
 | [docs/migration_report.md](docs/migration_report.md) | ドキュメント標準化の作業報告 |
+
+作業者向け AI 指示テンプレートは `instruction-templates/`（ローカル配置・Git 管理外）を参照。
 
 ---
 

@@ -30,8 +30,9 @@ hr-news/
 │   └── package.json
 ├── docs/                    # 仕様・設計ドキュメント
 ├── developer/               # 開発者向けガイド
-└── prompts/                 # AI 向けアプリ指示書
 ```
+
+`instruction-templates/` は作業者向け AI 指示テンプレート（ローカル配置・Git 管理外）。
 
 ### 配置ルール（現状）
 

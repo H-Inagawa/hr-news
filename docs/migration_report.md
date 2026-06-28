@@ -29,7 +29,7 @@
 
 ## 実装から推測した内容
 
-以下はソースコードおよび既存 README / `prompts/generate-app.md` から確認できた内容です。
+以下はソースコードおよび `docs/` 配下のドキュメントから確認できた内容です。
 
 ### システム概要
 
@@ -110,12 +110,14 @@
 | カテゴリ選択 | `docs/features/category_selection.md` |
 | 記事閲覧（別ウィンドウ） | `news_list.md` 内で言及（独立 feature 未作成） |
 
-### 将来検討（`prompts/generate-app.md` 記載、未実装）
+### 将来検討（未実装）
 
 - AI による高度な要約
 - 複数 RSS ソース対応
 - 投稿履歴保存
 - フィルタリング強化
+
+（`docs/project_overview.md` 参照）
 
 ---
 
@@ -147,3 +149,10 @@
 ## 削除したテンプレート
 
 作業完了後、`template-project/` ディレクトリを削除しました。
+
+## 2026-06-28 追記: レガシーファイル整理
+
+| 対象 | 対応 |
+|------|------|
+| `prompts/generate-app.md` | 削除。内容は `docs/` 配下に移行済み |
+| `instruction-templates/` | `.gitignore` に追加（ローカル配置・Git 管理外） |

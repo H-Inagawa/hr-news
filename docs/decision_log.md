@@ -112,7 +112,7 @@ TODO: ファイルベース設定を選んだ理由（DB 不使用、デプロ�
 
 ### 背景
 
-`prompts/generate-app.md` に「AI（Gemini 等）を使用した、より高度な要約機能の実装」が将来検討として記載されている。
+[docs/project_overview.md](project_overview.md) の将来検討に AI 要約が記載されている。
 
 ### 採用した案
 
